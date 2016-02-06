@@ -6,7 +6,7 @@ public class Main {
 		theGame.rollDices();
 		theGame.printRoll(System.out);
 		theGame.start();
-		theGame.printResult(System.out);
+		theGame.printAllResult(System.out);
 	}
 
 }

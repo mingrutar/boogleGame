@@ -16,18 +16,18 @@ import org.json.simple.parser.ParseException;
  * 
  * use https://www.mediawiki.org/wiki/API:Main_page for word validation
  *   Example 1 valid word 'test': 
- *    request:  https://en.wiktionary.org/w/api.php?action=query&titles=test
+ *    request:  https://en.wiktionary.org/w/api.php?action=query&titles=test&format=json
  *    response in JSON: 
- *       {"batchcomplete": "", "query": {"pages": {"27637": {"pageid": 27637,"ns": 0, "title": "test"}}}}
+ *       {"batchcomplete":"","query":{"pages":{"27637":{"pageid":27637,"ns":0,"title":"test"}}}}
  *   Example 2 invalid word 'testx':
- *     request: https://en.wiktionary.org/w/api.php?action=query&titles=testx
+ *     request: https://en.wiktionary.org/w/api.php?action=query&titles=testx&format=json
  *    response in JSON: 
  *       {"batchcomplete": "", "query": {"pages": {"-1": {"pageid": 27637,"ns": 0, "title": "testx","missing": ""}}}}
  *  @author linna
  *
  */
 public class WiktionaryWordChecker implements WordChecker {
-	private String requestTemplate = "https://en.wiktionary.org/w/api.php?action=query&titles=%s";
+	private String requestTemplate = "https://en.wiktionary.org/w/api.php?action=query&titles=%s&format=json";
 
 	private boolean parseResponse(String str) throws ParseException {
 		JSONParser parser=new JSONParser();
@@ -67,7 +67,7 @@ public class WiktionaryWordChecker implements WordChecker {
 			connect.setRequestMethod("GET");
 			connect.setRequestProperty("User-Agent", "Mozilla/5.0");
 			int respCode = connect.getResponseCode();						// check response code
-			System.out.println(String.format("Checking '%s' returns code %d", word, respCode));
+//			System.out.println(String.format("Checking '%s' returns code %d", word, respCode));
 			if (respCode < 400) {											// not error
 				BufferedReader reader = new BufferedReader(new InputStreamReader(connect.getInputStream()));
 				StringBuilder resp = new StringBuilder();
@@ -76,6 +76,9 @@ public class WiktionaryWordChecker implements WordChecker {
 					resp.append(line);
 				}
 				ret = parseResponse(resp.toString());						// parse response and get result
+//				if (ret) {
+//					System.out.print("!!! Found valid word:" + word);
+//				}
 			}
 		} catch (Exception ioex) {
 			System.out.println("Caught exception:"+ ioex);

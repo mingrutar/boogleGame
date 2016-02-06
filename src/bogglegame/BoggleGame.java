@@ -14,7 +14,7 @@ import java.util.Stack;
  *
  */
 public class BoggleGame implements WordGame {
-	private static int ValidatorDivider = 0;	// set to 0=>all fakeWorkdChecker, 5=>95 to fakeWorkdChecker
+	private static int ValidatorDivider = 100;	// set to 0=>all fakeWorkdChecker, 5=>95 to fakeWorkdChecker
 	private Random random;
 	private Character[][] aRoll;
 	
@@ -66,7 +66,7 @@ public class BoggleGame implements WordGame {
 		workPath.push(be);
 		sb.append(be.getValue());
 		if (workPath.size() >= Config.minLength) {
-			String word = sb.toString();
+			String word = sb.toString().toLowerCase();
 			if (isValidWord(word)) {
 				validWords.add(word);
 			}
