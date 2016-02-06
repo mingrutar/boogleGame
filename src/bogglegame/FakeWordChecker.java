@@ -7,6 +7,6 @@ public class FakeWordChecker implements WordChecker {
 
 	@Override
 	public boolean isValidWord(String word) {
-		return random.nextInt() % 10 == 0;
+		return random.nextInt() % Config.fakeValidPercentage == 0;
 	}
 }
