@@ -1,5 +1,9 @@
 package bogglegame;
-
+/***
+ * 
+ * @author linna
+ *
+ */
 public class Main {	
 	public static void main(String[] args) {
 		WordGame theGame = new BoggleGame();
