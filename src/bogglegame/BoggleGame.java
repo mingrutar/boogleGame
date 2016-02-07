@@ -52,10 +52,14 @@ public class BoggleGame implements WordGame {
 			out.println();
 		}
 	}
-	//
-	// 5% check at Wiktionary, 95% use FakeWordChecker
+	/***
+	 * According to Config.WiktionPercentage value, the validation
+	 *  send to wiktionary or randownly generated one.
+	 * @param word
+	 * @return
+	 */
 	private boolean isValidWord(String word) {
-		int rn = Math.abs(random.nextInt() % 100);
+		int rn = Math.abs(random.nextInt() % Config.WiktionPercentage);
 		return (rn < ValidatorDivider) ? wordCheckers[0].isValidWord(word) : wordCheckers[1].isValidWord(word);
 	}
 	/**
